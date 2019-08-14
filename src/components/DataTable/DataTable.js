@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import TableItem from './TableItem/TableItem'
 import OverlayLoading from '../OverlayLoading/OverlayLoading'
+import Pagination from './Pagination/Pagination'
 
 import styles from '../DataTable/DataTable.module.scss';
 
@@ -13,46 +14,72 @@ class DataTable extends Component {
 
     this.state = {
       pokemonIndex: [],
-      nextListElements: '',
       itemListInformation: [],
-      isLoadingPokemonInfo: true
+      isLoadingPokemonInfo: true,
+      resultsCount: 0,
+      itemsPerPage: 10,
+      pageSelected: 1
     }
+
+    this.paginationOffset = this.paginationOffset.bind(this)
+    this.handleElementSelected = this.handleElementSelected.bind(this)
+    this.handlePagination = this.handlePagination.bind(this)
+    this.getPokemonInfo = this.getPokemonInfo.bind(this)
+    this.getInfoPerPokemon = this.getInfoPerPokemon.bind(this)
+    this.displayingPokemonData = this.displayingPokemonData.bind(this)
   }
 
   componentDidMount () {
     this.getPokemonInfo()
   }
 
+  paginationOffset () {
+    const itemsPerPage = this.state.itemsPerPage
+    return (itemsPerPage * this.state.pageSelected - itemsPerPage)
+  }
+
+  handleElementSelected (e) {
+    // this.setState({ pageSelected: e.currentTarget.dataset.id })
+    console.log(e.currentTarget.dataset.id)
+    console.log(e.currentTarget.dataset.name)
+  }
+
+  handlePagination (e) {
+    if (e) {
+      const maxPage = Math.ceil(this.state.resultsCount / this.state.itemsPerPage)
+      const paginationValue = e > maxPage ? maxPage : e
+      this.setState({ pageSelected: paginationValue }, () => this.getPokemonInfo())
+    }
+
+  }
+
   async getPokemonInfo () {
-    await axios.get('https://pokeapi.co/api/v2/pokemon')
+    const url = `https://pokeapi.co/api/v2/pokemon/?offset=${this.paginationOffset()}&limit=${this.state.itemsPerPage}`
+
+    await axios.get(url)
       .then(response => {
         const data = response.data
-        this.setState({nextListElements: data.next})
-        this.setState({pokemonIndex: data.results})
+        this.setState({ pokemonIndex: data.results })
+        this.setState({ resultsCount: parseInt(data.count, 10) })
         this.getInfoPerPokemon()
-        this.setState({isLoadingPokemonInfo: !this.state.isLoadingPokemonInfo})
+        this.setState({ isLoadingPokemonInfo: false })
       })
       .catch( err => {
         console.log(err)
       })
   }
 
-  getInfoPerPokemon () {
+  async getInfoPerPokemon () {
     let dataExtractedFromApi = []
     this.state.pokemonIndex.map((elem, index) => {
-        return axios.get(elem.url)
+        axios.get(elem.url)
         .then(response => {
           dataExtractedFromApi.push(response.data)
           let eachPokemonData = dataExtractedFromApi.map((elem, index) => {
             return {
               id: elem.id,
               name: elem.name,
-              sprite: elem.sprites.front_default,
-              species: elem.species.name,
-              weight: elem.weight,
-              height: elem.height,
-              //TODO revisar abilities para ponerlas en la sección que corresponda
-              abilities: elem.abilities
+              sprite: elem.sprites.front_default
             }
           })
           eachPokemonData.sort((a, b) => {
@@ -74,7 +101,6 @@ class DataTable extends Component {
 
   displayingPokemonData () {
     let pokemonOrderedList = [...this.state.itemListInformation]
-    console.log(pokemonOrderedList)
     pokemonOrderedList.sort((a, b) => {
       if (a.id < b.id) {
         return -1
@@ -92,9 +118,7 @@ class DataTable extends Component {
           id={elem.id}
           sprite={elem.sprite}
           name={elem.name}
-          species={elem.species}
-          height={elem.height}
-          weight={elem.weight}
+          onClick={this.handleElementSelected}
         />
       )
     })
@@ -107,15 +131,17 @@ class DataTable extends Component {
       return (
         <OverlayLoading />
       )
+    const { resultsCount, itemsPerPage } = this.state
     return (
       <div className={styles.wrapper}>
+        <Pagination
+          results={resultsCount}
+          itemsPerPage={itemsPerPage}
+          handlePagination={this.handlePagination}
+        />
         <div className={styles.table}>
-          <span>Check</span>
           <span>Imagen</span>
           <span>Nombre</span>
-          <span className={styles.hidden}>Especie</span>
-          <span className={styles.hidden}>Peso</span>
-          <span className={styles.hidden}>Altura</span>
         </div>
         {displayingPokemonData}
       </div>

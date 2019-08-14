@@ -1,11 +1,11 @@
 .wrapper {
-
+  min-height: 200px;
   border: 2px solid red;
 }
 
 .table {
   display: grid;
-  grid-template-columns: 1fr repeat(5, 2fr);
+  grid-template-columns: repeat(2, 2fr);
   border-top:  1px solid grey;
   border-right: 1px solid grey;
 

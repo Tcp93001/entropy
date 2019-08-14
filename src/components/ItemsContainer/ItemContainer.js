@@ -19,7 +19,6 @@ const ItemContainer = () => {
 
       <DataTable />
 
-      <div>pagination</div>
     </div>
   )
 }
