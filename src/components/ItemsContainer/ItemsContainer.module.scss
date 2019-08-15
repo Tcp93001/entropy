@@ -1,3 +1,17 @@
 .wrapper {
   background-color: white;
 }
+
+.mainImage {
+  padding: 25px 0 10px;
+
+  @media (max-width: 576px) {
+    padding: 0;
+  }
+}
+
+
+.title {
+  font-size: 20px;
+  font-weight: 800;
+}

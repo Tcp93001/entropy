@@ -12,11 +12,6 @@ class Pagination extends Component {
   }
 
   selectProperPage (e) {
-
-    //TODO debe limitarse la paginación a solo maxPage
-    // const maxPage = Math.ceil(this.props.results / this.props.itemsPerPage)
-    // let currentPageValue = this.state.current_page === maxPage ? 
-
     if (e.currentTarget.dataset.id === '+') {
       this.setState({ current_page: this.state.current_page + 5 }, () => this.props.handlePagination(this.state.current_page))
     } else if (e.currentTarget.dataset.id === '-') {
@@ -48,12 +43,31 @@ class Pagination extends Component {
 
     return (
         <div className={styles.wrapper}>
+          <div className={styles.results_wrapper}>
+            <p className={styles.results}>Total de resultados</p>
+            <p className={styles.results}>{this.props.results}</p>
+          </div>
+
+          <div className={styles.select_wrapper}>
+            <p className={styles.results}>Resultados por página</p>
+
+            <select className={styles.select} onChange={this.props.handleItemsPerPage} value={this.props.itemsPerPage}>
+              <option value='10'>10</option>
+              <option value='20'>20</option>
+              <option value='30'>30</option>
+            </select>
+          </div>
+
           <div className={styles.pagination}>
             <span onClick={this.selectProperPage.bind(this)} data-id={1}>&lang;&lang;</span>
+
             <span onClick={this.selectProperPage.bind(this)} data-id={'-'}>&lang;</span>
+
             {renderPageNumbers}
+
             <span onClick={this.selectProperPage.bind(this)} data-id={'+'}>&rang;</span>
-            <span onClick={this.selectProperPage.bind(this)} data-id={49}>&rang;&rang;</span>
+
+            <span onClick={this.selectProperPage.bind(this)} data-id={Math.ceil(this.props.results / this.props.itemsPerPage)}>&rang;&rang;</span>
           </div>
         </div>
     )

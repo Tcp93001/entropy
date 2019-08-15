@@ -4,6 +4,7 @@ import axios from 'axios'
 import TableItem from './TableItem/TableItem'
 import OverlayLoading from '../OverlayLoading/OverlayLoading'
 import Pagination from './Pagination/Pagination'
+import PokemonCollection from '../PokemonCollection/PokemonCollection'
 
 import styles from '../DataTable/DataTable.module.scss';
 
@@ -18,7 +19,9 @@ class DataTable extends Component {
       isLoadingPokemonInfo: true,
       resultsCount: 0,
       itemsPerPage: 10,
-      pageSelected: 1
+      pageSelected: 1,
+      itemsSelected: [],
+      itemRepeated: false
     }
 
     this.paginationOffset = this.paginationOffset.bind(this)
@@ -27,6 +30,7 @@ class DataTable extends Component {
     this.getPokemonInfo = this.getPokemonInfo.bind(this)
     this.getInfoPerPokemon = this.getInfoPerPokemon.bind(this)
     this.displayingPokemonData = this.displayingPokemonData.bind(this)
+    this.handleItemsPerPage = this.handleItemsPerPage.bind(this)
   }
 
   componentDidMount () {
@@ -38,10 +42,34 @@ class DataTable extends Component {
     return (itemsPerPage * this.state.pageSelected - itemsPerPage)
   }
 
+  handleItemsPerPage (e) {
+    this.setState(
+      { itemsPerPage: parseInt(e.target.value, 10) },
+      () => this.getPokemonInfo()
+    )
+  }
+
   handleElementSelected (e) {
-    // this.setState({ pageSelected: e.currentTarget.dataset.id })
-    console.log(e.currentTarget.dataset.id)
-    console.log(e.currentTarget.dataset.name)
+    const item = {
+      name: e.currentTarget.dataset.name,
+      id: e.currentTarget.dataset.id,
+      sprite: e.currentTarget.dataset.sprite
+    }
+    let arrayOfSelectedItems = [...this.state.itemsSelected]
+
+    const repeatedElements = arrayOfSelectedItems.filter(elem => {
+      return elem.id === item.id
+    })
+
+    if (repeatedElements.length === 0) {
+      arrayOfSelectedItems.push(item)
+    } else {
+      return this.setState({ itemRepeated: !this.state.itemRepeated })
+    }
+
+    if (arrayOfSelectedItems.length <= 10) {
+      return this.setState({ itemsSelected: [...arrayOfSelectedItems] })
+    }
   }
 
   handlePagination (e) {
@@ -72,7 +100,7 @@ class DataTable extends Component {
   async getInfoPerPokemon () {
     let dataExtractedFromApi = []
     this.state.pokemonIndex.map((elem, index) => {
-        axios.get(elem.url)
+      return axios.get(elem.url)
         .then(response => {
           dataExtractedFromApi.push(response.data)
           let eachPokemonData = dataExtractedFromApi.map((elem, index) => {
@@ -82,16 +110,8 @@ class DataTable extends Component {
               sprite: elem.sprites.front_default
             }
           })
-          eachPokemonData.sort((a, b) => {
-            if (a.id < b.item) {
-              return -1
-            } else if (a.id > b.item) {
-              return 1
-            } else {
-              return 0
-            }
-          })
           this.setState({ itemListInformation: [...eachPokemonData] })
+          return eachPokemonData
         })
         .catch(err => {
           console.log(err)
@@ -126,24 +146,39 @@ class DataTable extends Component {
 
   render () {
     const displayingPokemonData = this.displayingPokemonData()
+    const {
+      resultsCount,
+      itemsPerPage,
+      itemsSelected,
+      itemRepeated,
+      itemsFull
+    } = this.state
 
-    if (this.state.isLoadingPokemonInfo)
+    if (this.state.isLoadingPokemonInfo) {
       return (
         <OverlayLoading />
       )
-    const { resultsCount, itemsPerPage } = this.state
+    }
+
     return (
       <div className={styles.wrapper}>
         <Pagination
           results={resultsCount}
           itemsPerPage={itemsPerPage}
           handlePagination={this.handlePagination}
+          handleItemsPerPage={this.handleItemsPerPage}
         />
-        <div className={styles.table}>
-          <span>Imagen</span>
-          <span>Nombre</span>
+
+        <div className={styles.dataZone}>
+          <div className={styles.cards}>
+            {displayingPokemonData}
+          </div>
+          <PokemonCollection
+            selectedItems={itemsSelected}
+            itemRepeated={itemRepeated}
+            itemsFull={itemsFull}
+          />
         </div>
-        {displayingPokemonData}
       </div>
     )
   }

@@ -1,24 +1,19 @@
 import React from 'react'
 
 import DataTable from '../DataTable/DataTable'
-
+import PokemonLogo from '../../img/Pokemon-logo.png'
 import styles from './ItemsContainer.module.scss'
 
 const ItemContainer = () => {
   return (
     <div className={styles.wrapper}>
       <div>
-        pokemon logo
+        <img className={styles.mainImage} src={PokemonLogo} alt='Pokemon Logo' />
       </div>
-
-      <div>search</div>
-
-      <div>items number</div>
-
-      <div>select item quantity</div>
+      <p className={styles.title}>¡Selecciona tus 10 Pokemones favoritos!</p>
+      <p>Tus pokemones favoritos se mostrarán en el panel de la derecha y podrás imprimirlos!</p>
 
       <DataTable />
-
     </div>
   )
 }

@@ -13,8 +13,8 @@ const TableItem = (props) => {
       data-sprite={props.sprite}
       className={styles.table}
     >
-      <img className={`${styles.images} ${styles.fadeInRight}`} src={props.sprite || pokeBall} alt='Imagenes Pokemon'/>
-      <span>{props.name}</span>
+      <img className={`${styles.images} ${styles.fadeIn}`} src={props.sprite || pokeBall} alt='Imagenes Pokemon'/>
+      <span className={`${styles.names} ${styles.fadeIn}`}>{props.name}</span>
     </div>
   )
 }

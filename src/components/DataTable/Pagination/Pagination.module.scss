@@ -1,21 +1,85 @@
 .wrapper {
-  margin: 12px 0 12px;
+  margin: 12px 0 25px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+}
+
+.results_wrapper {
+  height: 60px;
+  border-radius: 5px;
+  padding: 5px;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 500% 500%;
+  animation: gradientBG 15s ease infinite;
+
+  @media (max-width: 768px) {
+    margin: 5px 10px 5px;
+  }
+
+  @media (max-width: 576px) {
+    margin: 5px 0 5px;
+  }
+}
+
+.results {
+  font-size: 18px;
+  margin: 5px 15px;
+  font-weight: 700;
+  color: #fafafaf1;
+
+  @media (max-width: 768px) {
+    margin: 3px 10px;
+    font-size: 13px;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+}
+
+.select_wrapper {
+  height: 60px;
+  border-radius: 5px;
+  padding: 5px;
+  background: linear-gradient(-45deg, #e73c7e, #ee7752,  #23d5ab, #23a6d5,);
+  background-size: 500% 500%;
+  animation: gradientBG 15s ease infinite;
+}
+
+.select {
+  cursor: pointer;
+  width: 60px;
+  font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 10px;
+  }
 }
 
 .pagination {
-
+ padding: 25px 0 10px;
 }
+
 
 .pagination span {
   cursor: pointer;
   color: black;
-  padding: 8px 16px;
+  padding: 16px 16px;
   text-decoration: none;
   transition: background-color .3s;
   border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 11px;
 }
 
 .pagination span.active {
@@ -24,3 +88,14 @@
   border: 1px solid #0099FF;
 }
 
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
