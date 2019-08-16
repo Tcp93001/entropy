@@ -43,3 +43,53 @@
   margin-bottom: 10px;
   color: #0051ffa2;
 }
+
+.button_accept {
+  margin: 10px 15px;
+  padding: 15px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px #999;
+  
+    &:hover {
+      background-color: #3e8e41da
+    }
+
+    &:active {
+      background-color: #3e8e41;
+      box-shadow: 0 0 #666;
+      transform: translateY(4px);
+    }
+}
+
+.button_cancel {
+  margin: 10px 15px;
+  padding: 15px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #5e4caf;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px #999;
+
+    &:hover {
+      background-color: #4a4079
+    }
+
+    &:active {
+      background-color: #5e4caf;
+      box-shadow: 0 0 #666;
+      transform: translateY(4px);
+    }
+}

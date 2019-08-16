@@ -10,6 +10,7 @@
     padding: 0;
     margin: 0 10px;
   }
+
 }
 
 .dataZone {
@@ -20,4 +21,25 @@
 
 .cards {
   padding: 10px 5px 15px;
+}
+
+.alert {
+  background: linear-gradient(135deg, #f06e4763, #e73c3c70, #eff2f3, #ffffff);
+  background-size: 500% 500%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 100%;
+	}
+}
+
+@media print {
+  .no_print {
+    display: none;
+  }
 }

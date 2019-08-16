@@ -32,7 +32,7 @@ class Pagination extends Component {
 
       renderPageNumbers = pageNumbers.map(number => {
         let classes = this.state.current_page === number ? styles.active : ''
-        if ((number >= this.state.current_page - 2 && number <= this.state.current_page + 2)) {
+        if ((number >= this.state.current_page - 1 && number <= this.state.current_page + 1)) {
           return (
             <span key={number} className={classes} onClick={this.selectProperPage.bind(this)} data-id={number}>{number}</span>
             )

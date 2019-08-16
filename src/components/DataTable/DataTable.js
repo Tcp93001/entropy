@@ -31,6 +31,7 @@ class DataTable extends Component {
     this.getInfoPerPokemon = this.getInfoPerPokemon.bind(this)
     this.displayingPokemonData = this.displayingPokemonData.bind(this)
     this.handleItemsPerPage = this.handleItemsPerPage.bind(this)
+    this.deleteSelectedItems = this.deleteSelectedItems.bind(this)
   }
 
   componentDidMount () {
@@ -70,6 +71,10 @@ class DataTable extends Component {
     if (arrayOfSelectedItems.length <= 10) {
       return this.setState({ itemsSelected: [...arrayOfSelectedItems] })
     }
+  }
+
+  deleteSelectedItems () {
+    return this.setState({ itemsSelected: [] })
   }
 
   handlePagination (e) {
@@ -150,9 +155,11 @@ class DataTable extends Component {
       resultsCount,
       itemsPerPage,
       itemsSelected,
-      itemRepeated,
-      itemsFull
+      itemRepeated
     } = this.state
+    const classes = itemsSelected.length === 10 ?
+      `${styles.dataZone} ${styles.alert}`
+      : `${styles.dataZone}`
 
     if (this.state.isLoadingPokemonInfo) {
       return (
@@ -169,14 +176,14 @@ class DataTable extends Component {
           handleItemsPerPage={this.handleItemsPerPage}
         />
 
-        <div className={styles.dataZone}>
-          <div className={styles.cards}>
+        <div className={classes}>
+          <div className={`${styles.cards} ${styles.no_print}`}>
             {displayingPokemonData}
           </div>
           <PokemonCollection
             selectedItems={itemsSelected}
             itemRepeated={itemRepeated}
-            itemsFull={itemsFull}
+            deleteItems={this.deleteSelectedItems}
           />
         </div>
       </div>

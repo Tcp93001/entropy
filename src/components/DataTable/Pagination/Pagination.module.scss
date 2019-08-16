@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 }
@@ -47,7 +47,7 @@
   height: 60px;
   border-radius: 5px;
   padding: 5px;
-  background: linear-gradient(-45deg, #e73c7e, #ee7752,  #23d5ab, #23a6d5,);
+  background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 500% 500%;
   animation: gradientBG 15s ease infinite;
 }

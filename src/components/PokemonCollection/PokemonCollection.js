@@ -5,6 +5,11 @@ import TableItem from '../DataTable/TableItem/TableItem'
 import styles from './PokemonCollection.module.scss'
 
 class PokemonCollection extends Component {
+
+  printing () {
+    window.print()
+  }
+
   render () {
     const classes = this.props.selectedItems.length === 10 ?
       `${styles.cards_wrapper} ${styles.cards_wrapper_full}`
@@ -21,8 +26,12 @@ class PokemonCollection extends Component {
               </div>
           }
           {this.props.selectedItems.length === 10 &&
-              <div className={styles.listIsFull}>
-                <span>¡Ya seleccionaste todos tus pokemones!</span>
+              <div>
+                <div className={styles.listIsFull}>
+                  <span>¡Ya seleccionaste todos tus pokemones!</span>
+                </div>
+                <button onClick={this.printing} className={styles.button_accept}>Imprimir</button>
+                <button onClick={this.props.deleteItems} className={styles.button_cancel}>Borrar todos</button>
               </div>
           }
 
