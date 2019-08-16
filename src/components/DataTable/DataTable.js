@@ -21,7 +21,8 @@ class DataTable extends Component {
       itemsPerPage: 10,
       pageSelected: 1,
       itemsSelected: [],
-      itemRepeated: false
+      itemRepeated: false,
+      searByName: ''
     }
 
     this.paginationOffset = this.paginationOffset.bind(this)

@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1120px) {
     flex-direction: column;
   }
 }
@@ -18,7 +18,7 @@
   background-size: 500% 500%;
   animation: gradientBG 15s ease infinite;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1120px) {
     margin: 5px 10px 5px;
   }
 
@@ -28,12 +28,12 @@
 }
 
 .results {
-  font-size: 18px;
-  margin: 5px 15px;
+  font-size: 16px;
+  margin: 5px 10px;
   font-weight: 700;
   color: #fafafaf1;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1120px) {
     margin: 3px 10px;
     font-size: 13px;
   }
@@ -44,6 +44,7 @@
 }
 
 .select_wrapper {
+  margin: 5px;
   height: 60px;
   border-radius: 5px;
   padding: 5px;
@@ -56,6 +57,7 @@
   cursor: pointer;
   width: 60px;
   font-size: 16px;
+  border: 1px solid #d3d3d3;
 
   @media (max-width: 768px) {
     font-size: 12px;

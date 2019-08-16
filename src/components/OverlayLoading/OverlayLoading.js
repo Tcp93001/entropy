@@ -4,16 +4,7 @@ import styles from './OverlayLoading.module.scss'
 
 const OverLayLoading = () => {
   return (
-    <div className={styles.loader_wrapper}>
-      <div className={styles.loader}>
-        <div className={styles.face}>
-          <div className={styles.circle}></div>
-        </div>
-        <div className={styles.face}>
-          <div className={styles.circle}></div>
-        </div>
-      </div>
-    </div>
+    <div className={styles.loader}>Loading...</div>
   )
 }
 

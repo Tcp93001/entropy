@@ -43,10 +43,10 @@ class Pagination extends Component {
 
     return (
         <div className={styles.wrapper}>
-          <div className={styles.results_wrapper}>
+        {this.props.results && <div className={styles.results_wrapper}>
             <p className={styles.results}>Total de resultados</p>
             <p className={styles.results}>{this.props.results}</p>
-          </div>
+          </div>}
 
           <div className={styles.select_wrapper}>
             <p className={styles.results}>Resultados por página</p>
