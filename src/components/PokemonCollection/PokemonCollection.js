@@ -34,10 +34,10 @@ class PokemonCollection extends Component {
 
           {this.props.selectedItems.length !== 0 &&
             <div className={styles.cards_wrapper}>
-              {this.props.selectedItems.map((elem, index) => {
+              {this.props.selectedItems.map(elem => {
                 return (
                   <TableItem
-                    key={index}
+                    key={elem.id}
                     id={elem.id}
                     sprite={elem.sprite}
                     name={elem.name}

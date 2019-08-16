@@ -62,11 +62,9 @@ class DataTable extends Component {
     }
     let arrayOfSelectedItems = [...this.state.itemsSelected]
 
-    const repeatedElements = arrayOfSelectedItems.filter(elem => {
-      return elem.id === item.id
-    })
+    const repeatedElements = arrayOfSelectedItems.findIndex(e => e.id === item.id)
 
-    if (repeatedElements.length === 0) {
+    if (repeatedElements ===  -1) {
       arrayOfSelectedItems.push(item)
     } else {
       return this.setState({ itemRepeated: !this.state.itemRepeated })
@@ -111,11 +109,11 @@ class DataTable extends Component {
 
   async getInfoPerPokemon () {
     let dataExtractedFromApi = []
-    this.state.pokemonIndex.map((elem, index) => {
+    this.state.pokemonIndex.map(elem => {
       return axios.get(elem.url)
         .then(response => {
           dataExtractedFromApi.push(response.data)
-          let eachPokemonData = dataExtractedFromApi.map((elem, index) => {
+          let eachPokemonData = dataExtractedFromApi.map(elem => {
             return {
               id: elem.id,
               name: elem.name,
@@ -147,10 +145,10 @@ class DataTable extends Component {
     })
 
 
-    return pokemonOrderedList.map((elem, index) => {
+    return pokemonOrderedList.map(elem => {
       return (
         <TableItem
-          key={index}
+          key={elem.id}
           id={elem.id}
           sprite={elem.sprite}
           name={elem.name}
