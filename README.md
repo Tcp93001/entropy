@@ -1,18 +1,18 @@
 # Do you like Pokemon?
-## A small React app for kids (spanish only, for now...) 
+### A small React app for kids (spanish only, for now...)
+### Just print & cut your favorite Pokemons!
 
-## Just print & cut your favorite Pokemons!
 This is only a demo using PokeAPI, an excellent source of Pokemon info.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 You can run this project as follows:
 
-## First, clone & run npm install
+## First, clone & run yarn
 
 In the project directory, you can run:
 
-### `npm start`
+### `yarn start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
