@@ -6,6 +6,7 @@
   border-radius: 10px;
   box-shadow: 0 0 5px #664c2bc2;
   grid-template-rows: 50px 2fr;
+
 }
 
 .cards_wrapper {
@@ -16,12 +17,23 @@
   grid-template-columns: 2fr 2fr;
   column-gap: 10px;
 
-
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+
+  @media print {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
 }
 
+@media print {
+  .no_print {
+    display: none;
+  }
+}
 .cards_wrapper_full {
   background-color: #fd360433;
 }
@@ -57,7 +69,7 @@
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px #999;
-  
+
     &:hover {
       background-color: #3e8e41da
     }

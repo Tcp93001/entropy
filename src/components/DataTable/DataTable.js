@@ -16,7 +16,8 @@ class DataTable extends Component {
     this.state = {
       pokemonIndex: [],
       itemListInformation: [],
-      isLoadingPokemonInfo: true,
+      isLoadingComponent: true,
+      isLoadingPokemonData: true,
       resultsCount: 0,
       itemsPerPage: 10,
       pageSelected: 1,
@@ -45,8 +46,10 @@ class DataTable extends Component {
   }
 
   handleItemsPerPage (e) {
-    this.setState(
-      { itemsPerPage: parseInt(e.target.value, 10) },
+    this.setState({
+        itemsPerPage: parseInt(e.target.value, 10),
+        isLoadingPokemonData: true
+      },
       () => this.getPokemonInfo()
     )
   }
@@ -82,7 +85,10 @@ class DataTable extends Component {
     if (e) {
       const maxPage = Math.ceil(this.state.resultsCount / this.state.itemsPerPage)
       const paginationValue = e > maxPage ? maxPage : e
-      this.setState({ pageSelected: paginationValue }, () => this.getPokemonInfo())
+      this.setState({
+        pageSelected: paginationValue,
+        isLoadingPokemonData: true
+       }, () => this.getPokemonInfo())
     }
 
   }
@@ -96,7 +102,7 @@ class DataTable extends Component {
         this.setState({ pokemonIndex: data.results })
         this.setState({ resultsCount: parseInt(data.count, 10) })
         this.getInfoPerPokemon()
-        this.setState({ isLoadingPokemonInfo: false })
+        this.setState({ isLoadingComponent: false })
       })
       .catch( err => {
         console.log(err)
@@ -116,7 +122,10 @@ class DataTable extends Component {
               sprite: elem.sprites.front_default
             }
           })
-          this.setState({ itemListInformation: [...eachPokemonData] })
+          this.setState({
+            itemListInformation: [...eachPokemonData],
+            isLoadingPokemonData: false
+           })
           return eachPokemonData
         })
         .catch(err => {
@@ -137,6 +146,7 @@ class DataTable extends Component {
       }
     })
 
+
     return pokemonOrderedList.map((elem, index) => {
       return (
         <TableItem
@@ -156,13 +166,15 @@ class DataTable extends Component {
       resultsCount,
       itemsPerPage,
       itemsSelected,
-      itemRepeated
+      itemRepeated,
+      isLoadingComponent,
+      isLoadingPokemonData
     } = this.state
     const classes = itemsSelected.length === 10 ?
       `${styles.dataZone} ${styles.alert}`
       : `${styles.dataZone}`
 
-    if (this.state.isLoadingPokemonInfo) {
+    if (isLoadingComponent) {
       return (
         <OverlayLoading />
       )
@@ -178,9 +190,14 @@ class DataTable extends Component {
         />
 
         <div className={classes}>
-          <div className={`${styles.cards} ${styles.no_print}`}>
-            {displayingPokemonData}
-          </div>
+          {isLoadingPokemonData ? (
+              <OverlayLoading />
+            ) : (
+              <div className={`${styles.cards} ${styles.no_print}`}>
+                {displayingPokemonData}
+              </div>
+            )
+          }
           <PokemonCollection
             selectedItems={itemsSelected}
             itemRepeated={itemRepeated}

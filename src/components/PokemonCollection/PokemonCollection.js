@@ -11,9 +11,6 @@ class PokemonCollection extends Component {
   }
 
   render () {
-    const classes = this.props.selectedItems.length === 10 ?
-      `${styles.cards_wrapper} ${styles.cards_wrapper_full}`
-      : `${styles.cards_wrapper}`
     return (
       <div>
         <div className={styles.elements_wrapper}>
@@ -27,16 +24,16 @@ class PokemonCollection extends Component {
           }
           {this.props.selectedItems.length === 10 &&
               <div>
-                <div className={styles.listIsFull}>
+                <div className={`${styles.invitation} ${styles.no_print}`}>
                   <span>¡Ya seleccionaste todos tus pokemones!</span>
                 </div>
-                <button onClick={this.printing} className={styles.button_accept}>Imprimir</button>
-                <button onClick={this.props.deleteItems} className={styles.button_cancel}>Borrar todos</button>
+                <button onClick={this.printing} className={`${styles.button_accept} ${styles.no_print}`}>Imprimir</button>
+                <button onClick={this.props.deleteItems} className={`${styles.button_cancel} ${styles.no_print}`}>Borrar todos</button>
               </div>
           }
 
           {this.props.selectedItems.length !== 0 &&
-            <div className={classes}>
+            <div className={styles.cards_wrapper}>
               {this.props.selectedItems.map((elem, index) => {
                 return (
                   <TableItem

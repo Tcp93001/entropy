@@ -11,7 +11,7 @@ const ItemContainer = () => {
         <img className={styles.mainImage} src={PokemonLogo} alt='Pokemon Logo' />
       </div>
       <p className={styles.title}>¡Selecciona tus 10 Pokemones favoritos!</p>
-      <p>Tus pokemones favoritos se mostrarán en el panel de la derecha y podrás imprimirlos!</p>
+      <p className={styles.subtitle}>Tus pokemones favoritos se mostrarán en el panel de la derecha y podrás imprimirlos!</p>
 
       <DataTable />
     </div>

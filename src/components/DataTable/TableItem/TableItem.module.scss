@@ -6,6 +6,11 @@
   box-shadow: 0 0 5px #664c2bc2;
   background-color: #f8f8f8d5;
   height: 100px;
+
+
+  @media print {
+    margin: 10px;
+  }
 }
 
 

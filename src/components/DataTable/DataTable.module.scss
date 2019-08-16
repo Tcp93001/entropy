@@ -14,6 +14,7 @@
 }
 
 .dataZone {
+  padding: 5px;
   border-radius: 10px;
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -25,7 +26,7 @@
 }
 
 .alert {
-  background: linear-gradient(135deg, #f06e4763, #e73c3c70, #eff2f3, #ffffff);
+  background: linear-gradient(135deg, #f06e4763, #e73c3c70, #fafafa, #ffffff);
   background-size: 500% 500%;
   animation: gradientBG 15s ease infinite;
 }
